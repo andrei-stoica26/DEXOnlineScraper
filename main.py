@@ -62,6 +62,7 @@ def save_words(folder_path, onset_list, start = 2, remove_expressions = True, re
             else:
                 dict_exceed[onset] = count
             print(f'{count} words at {url}.')
+        time.sleep(2)  
     with open(f'{folder_path}/dict_satisfy{start}.json', 'w') as f:
         json.dump(dict_satisfy, f)
     with open(f'{folder_path}/words{start}.json', 'w') as f:
@@ -103,7 +104,8 @@ def main():
     #We scrape words by their starting letters
     #In the beginning, all combinations of two letters are tried
     #When DEXOnline reports that more than 1000 results exists for a combination, all possible three letter combinations are formed based on said combination
-    #s
+    #The procedure then iterates until no combinations return more than 1000 results.
+    #To slightly reduce the number of requests, some filters were applied: no combinations involving k, q, w, y, upper case letters or an empty space were considered.
     start = 2
     remove_expressions = True
     remove_upper = True
